@@ -1,8 +1,6 @@
 import type { RoleEnum } from '@/enum/role';
-import type { localeKey } from '@/locales/types';
 import type { RouteMeta, RouteRecordRaw } from 'vue-router';
 
-export type localeTitle = { [key in localeKey]: string };
 export interface Meta extends RouteMeta {
   // 菜单标题
   title: string;

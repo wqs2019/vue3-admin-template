@@ -3,16 +3,16 @@ import type { AppRouteRecordRaw } from '@/router/type';
 const Layout = () => import('@/layouts/page-layouts/index.vue');
 
 const root: Array<AppRouteRecordRaw> = [
-  {
-    path: '/',
-    component: Layout,
-    name: 'RtRoot',
-    meta: {
-      title: '首页',
-      icon: 'iEL-home-filled',
-      whiteRoute: true,
-    },
-  },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   name: 'RtRoot',
+  //   meta: {
+  //     title: '首页',
+  //     icon: 'iEL-home-filled',
+  //     whiteRoute: true,
+  //   },
+  // },
   {
     path: '/login',
     component: () => import('@/views/login/index.vue'),

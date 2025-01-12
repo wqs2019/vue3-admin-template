@@ -14,8 +14,6 @@ import viteBuildOuteInfo from './buildOuteInfo';
 import { configCompressPlugin } from './compress';
 // element
 import { configAutoElementStylePlugin } from './element';
-// vue-i18n
-import { configVueI18nPlugin } from './i18n';
 // 图片压缩
 import { configImageminPlugin } from './imagemin';
 // mock
@@ -60,8 +58,6 @@ export function createVitePlugins(_isBuild = false, configEnv: ConfigEnv) {
   vitePlugins.push(configImageminPlugin());
 
   vitePlugins.push(viteBuildOuteInfo());
-
-  vitePlugins.push(configVueI18nPlugin());
 
   if (configEnv.mode !== 'test') vitePlugins.push(Inspect());
 

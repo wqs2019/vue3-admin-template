@@ -14,15 +14,15 @@ export interface UseInfoType {
 }
 
 export interface UserParams {
-  username: string;
-  password: string;
+  userName: string;
+  userPass: string;
 }
 
 export const getUserInfo = (user: string, pwd: string) =>
   deffHttp.post<UseInfoType, UserParams>(
     {
-      url: '/mock_api/login',
-      data: { username: user, password: pwd },
+      url: '/v1/login',
+      data: { userName: user, userPass: pwd },
     },
     { errorMessageMode: 'modal', withToken: false },
   );

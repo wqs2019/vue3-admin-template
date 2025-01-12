@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       if (usePermissionStoreHook().wholeMenus.length === 0) {
-        initRoute(userInfoStore.roles).then(res => {
+        initRoute().then(res => {
           if (res?.length) {
             router.push({
               path: to.path,

@@ -1,101 +1,86 @@
-import { PermissionMode, type RoleEnum } from '@/enum/role';
-import { getRouteApi } from '@/server/route';
-import { useAppStoreHook } from '@/store/modules/app';
+import { getRouteApi2 } from '@/server/route';
 import { usePermissionStoreHook } from '@/store/modules/permission';
 import { isUrl } from '@jsxiaosi/utils';
 import { useTimeoutFn } from '@vueuse/core';
-import { cloneDeep } from 'lodash-es';
-import type { RouteDataItemType } from '@/server/route';
+// import type { RouteDataItemType } from '@/server/route';
 import type { RouteRecordName, RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
 import { router, sidebarRouteList } from './index';
 import type { AppRouteRecordRaw, Meta } from './type';
 
-// 获取路由列表
-async function getRouteList(permission: RoleEnum) {
-  const appStore = useAppStoreHook();
-  if (appStore.appConfigMode.permissionMode === PermissionMode.REAREND) {
-    // 后端路由控制
-    return await getAsyncRoute(permission);
-  } else {
-    // 角色路由控制
-    return await getStaticRoute(permission);
-  }
-}
-
 // 初始化权限路由
-export async function initRoute(permission: RoleEnum | null) {
+export async function initRoute() {
   const { clearAllCachePage, setWholeMenus } = usePermissionStoreHook();
   resetRouter();
   clearAllCachePage();
   let routeList: AppRouteRecordRaw[] = [];
-  if (permission) {
-    routeList = await getRouteList(permission);
-    // 更新路由列表前通过formatFlatteningRoutes打平树结构
-    privilegeRouting(
-      router.options.routes as RouteRecordRaw[],
-      formatFlatteningRoutes(routeList) as AppRouteRecordRaw[],
-    );
-    setWholeMenus(routeList);
-  }
+  routeList = await getAsyncRoute();
+  // 更新路由列表前通过formatFlatteningRoutes打平树结构
+  privilegeRouting(router.options.routes as RouteRecordRaw[], formatFlatteningRoutes(routeList) as AppRouteRecordRaw[]);
+  console.log(routeList, 'setWholeMenus====>');
+
+  setWholeMenus(routeList);
 
   return routeList;
 }
 
 // 获取后端路由
-async function getAsyncRoute(permission: RoleEnum) {
-  const res = await getRouteApi({ name: permission });
-  if (res.data.length) {
-    // 根据接口返回的路由列表生成新的路由（此时的路由是带有层级关系）
-    return handleRouteList(sortRouteList(sidebarRouteList), res.data);
+async function getAsyncRoute() {
+  const res = await getRouteApi2();
+  if (res.data) {
+    function formatRoute(data) {
+      const formatData = data?.map(item => {
+        const temp: any = {
+          name: item.code,
+          path: item.route,
+          meta: {
+            title: item.meta.title,
+            icon: item.meta.icon.replace('el-icon-', ''),
+            alwaysShow: !!item.children,
+          },
+        };
+        if (item.children?.length > 0) {
+          temp.children = formatRoute(item.children);
+        }
+        return temp;
+      });
+      return formatData;
+    }
+    console.log(formatRoute(res.data?.children), 'format====>');
+
+    return formatRoute(res.data?.children || []);
+    // return handleRouteList(sortRouteList(sidebarRouteList), res.data);
   } else {
     console.error('No requested route');
     return [];
   }
 }
 
-// 异步获取静态路由，防止切换权限时因列表缓存导致菜单无法正常刷新
-async function getStaticRoute(permission: RoleEnum) {
-  return filterNoPermissionRouteList(sortRouteList(cloneDeep(sidebarRouteList)), permission);
-}
-
-// 通过角色过滤无权限路由
-function filterNoPermissionRouteList(routerList: AppRouteRecordRaw[], roleName: RoleEnum): AppRouteRecordRaw[] {
-  const newRouteList = [...routerList];
-  let newRoute = newRouteList.filter(i => !i.meta?.roles || i.meta?.roles?.includes(roleName));
-  newRoute = newRoute.map(i => {
-    if (i.children && i.children.length) {
-      i.children = filterNoPermissionRouteList(i.children, roleName);
-    }
-    return i;
-  });
-
-  return newRoute || [];
-}
-
 // 通过后端返回路由列表过滤无权限路由
-function handleRouteList(routerList: AppRouteRecordRaw[], dataRouter: RouteDataItemType[]) {
-  const newRouteList: AppRouteRecordRaw[] = [];
-  routerList.forEach(i => {
-    if (!i.meta?.whiteRoute) {
-      const rItem = dataRouter.find(r => r.name === i.name);
-      if (rItem) {
-        if (i.children && i.children.length) {
-          const children = handleRouteList(i.children, rItem.children);
-          if (children) newRouteList.push({ ...i, children });
-        } else {
-          newRouteList.push(i);
-        }
-      }
-    } else {
-      newRouteList.push(i);
-    }
-  });
-  return newRouteList;
-}
+// function handleRouteList(routerList: AppRouteRecordRaw[], dataRouter: RouteDataItemType[]) {
+//   const newRouteList: AppRouteRecordRaw[] = dataRouter;
+//   routerList.forEach(i => {
+//     if (!i.meta?.whiteRoute) {
+//       const rItem = dataRouter.find(r => r.name === i.name);
+//       if (rItem) {
+//         if (i.children && i.children.length) {
+//           const children = handleRouteList(i.children, rItem.children);
+//           if (children) newRouteList.push({ ...i, children });
+//         } else {
+//           newRouteList.push(i);
+//         }
+//       }
+//     } else {
+//       newRouteList.push(i);
+//     }
+//   });
+//   return newRouteList;
+// }
 
 // 更新route的路由列表
 function privilegeRouting(routeList: RouteRecordRaw[], dataRouter: AppRouteRecordRaw[]) {
   const homeIndex = routeList.findIndex(i => i.path === '/');
+  console.log(homeIndex, 'homeIndex===>');
+
   if (homeIndex !== -1) {
     routeList[homeIndex].redirect = dataRouter[0].path;
     routeList[homeIndex].children = [];
@@ -133,17 +118,17 @@ function pathResolve(...paths: string[]) {
 }
 
 // 按照路由中meta下的rank等级升序来排序路由
-function sortRouteList(arr: any[]) {
-  arr.forEach(v => {
-    if (v?.meta?.rank === null) v.meta.rank = undefined;
-    if (v.children) {
-      v.children = sortRouteList(v.children);
-    }
-  });
-  return arr.sort((a: { meta: { position: number } }, b: { meta: { position: number } }) => {
-    return a?.meta?.position - b?.meta?.position;
-  });
-}
+// function sortRouteList(arr: any[]) {
+//   arr.forEach(v => {
+//     if (v?.meta?.rank === null) v.meta.rank = undefined;
+//     if (v.children) {
+//       v.children = sortRouteList(v.children);
+//     }
+//   });
+//   return arr.sort((a: { meta: { position: number } }, b: { meta: { position: number } }) => {
+//     return a?.meta?.position - b?.meta?.position;
+//   });
+// }
 
 // 匹配不被清除的文件夹和文件
 export function pathNamekeyCheck(key: string, whiteCatalogue: string[]) {

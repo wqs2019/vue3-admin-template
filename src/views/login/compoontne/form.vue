@@ -23,9 +23,9 @@
   const router = useRouter();
   const onLogin = async (): Promise<void> => {
     const res = await getUserInfo(ruleForm.userName, ruleForm.userPass);
-    if (res.code === 1) {
+    if (res.code === 200) {
       useUserInfoStoreHook().setUserInfo(res.data);
-      await initRoute(res.data.role);
+      await initRoute();
       router.push('/');
     }
   };

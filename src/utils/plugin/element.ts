@@ -17,6 +17,7 @@ import {
   Select,
   Setting,
 } from '@element-plus/icons-vue';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import {
   ElAlert,
   ElBreadcrumb,
@@ -149,7 +150,10 @@ export function useElementPlus(app: App) {
     app.use(plugin);
   });
   // 注册图标
-  iconComponents.forEach((component: Component) => {
+  for (const [_, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(transElIconName(component.name as string), component);
-  });
+  }
+  // iconComponents.forEach((component: Component) => {
+  //   app.component(transElIconName(component.name as string), component);
+  // });
 }
