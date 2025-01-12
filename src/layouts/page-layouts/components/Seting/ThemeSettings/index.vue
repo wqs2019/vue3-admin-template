@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="options">
-      <span>{{ $t('layout.customTheme') }}</span>
+      <span>自定义主题</span>
       <el-color-picker v-model="pureColor" />
     </div>
     <div class="options">

@@ -1,8 +1,5 @@
-import { useI18n } from '@/hooks/web/useI18n';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import type { ElMessageBoxOptions } from 'element-plus';
-
-const { t } = useI18n();
 
 function createElMessageBox(message: string, title: string, options: ElMessageBoxOptions) {
   ElMessageBox.confirm(message, title, options)
@@ -11,9 +8,9 @@ function createElMessageBox(message: string, title: string, options: ElMessageBo
 }
 
 function createErrorModal(message: string) {
-  createElMessageBox(message, t('sys.errorTip'), {
-    confirmButtonText: t('sys.okText'),
-    cancelButtonText: t('sys.closeText'),
+  createElMessageBox(message, '错误提示', {
+    confirmButtonText: '确认',
+    cancelButtonText: '关闭',
     type: 'error',
   });
 }

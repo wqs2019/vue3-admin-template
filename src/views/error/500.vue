@@ -15,15 +15,11 @@
       <SvgIcon name="error-500" class-name="icon" />
     </div>
     <div class="text">
-      <span>{{ $t('error-page.500.title') }}</span>
+      <span>服务器报告错误。</span>
     </div>
-    <div class="description">
-      {{ $t('error-page.500.description') }}
-    </div>
+    <div class="description">抱歉，发生意外错误，无法完成您的请求。</div>
 
-    <ElButton type="primary" @click="toHome">
-      {{ $t('error-page.back') }}
-    </ElButton>
+    <ElButton type="primary" @click="toHome"> 返回首页 </ElButton>
   </div>
 </template>
 

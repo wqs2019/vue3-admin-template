@@ -15,15 +15,11 @@
       <SvgIcon name="error-404" class-name="icon" />
     </div>
     <div class="text">
-      <span>{{ $t('error-page.404.title') }}</span>
+      <span>找不到网页</span>
     </div>
-    <div class="description">
-      {{ $t('error-page.404.description') }}
-    </div>
+    <div class="description">抱歉，您要查找的页面无法访问。</div>
 
-    <ElButton type="primary" @click="toHome">
-      {{ $t('error-page.back') }}
-    </ElButton>
+    <ElButton type="primary" @click="toHome"> 返回首页 </ElButton>
   </div>
 </template>
 

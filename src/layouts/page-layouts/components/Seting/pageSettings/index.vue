@@ -23,44 +23,39 @@
 <template>
   <div>
     <div class="options">
-      <span>{{ $t('layout.hideSidebar') }}</span>
+      <span>隐藏侧边栏</span>
       <el-switch v-model="appConfig.hideSidebar" @change="hidePublicChange" />
     </div>
     <div class="options">
-      <span>{{ $t('layout.hideNavBart') }}</span>
+      <span>隐藏顶部导航栏</span>
       <el-switch v-model="appConfig.hideNavbart" @change="hidePublicChange" />
     </div>
     <div class="options">
-      <span>{{ $t('layout.hideTabs') }}</span>
+      <span>隐藏标签栏</span>
       <el-switch v-model="appConfig.hideTabs" @change="hidePublicChange" />
     </div>
     <div class="options">
-      <span>{{ $t('layout.hideTabsConfig') }}</span>
+      <span>隐藏标签栏操作按钮</span>
       <el-switch v-model="appConfig.hideTabsConfig" @change="hidePublicChange" />
     </div>
     <div class="options">
-      <span>{{ $t('layout.closeTabDrag') }}</span>
+      <span>关闭标签页拖拽</span>
       <el-switch v-model="appConfig.closeTabDrag" @change="hidePublicChange" />
     </div>
     <div class="options">
-      <span>{{ $t('layout.labelPersistent') }}</span>
+      <span>标签持久化</span>
       <el-switch v-model="labelPersistentRef" @change="labelPersistentChange" />
     </div>
     <div class="options">
-      <span>{{ $t('layout.sidebarFold') }}</span>
+      <span>侧边栏折叠按钮</span>
       <el-select
         v-model="appConfig.sidebarFold"
         class="select"
-        :placeholder="$t('layout.sidebarFold')"
+        placeholder="侧边栏折叠按钮"
         size="small"
         @change="hidePublicChange"
       >
-        <el-option
-          v-for="item in ['none', 'top', 'bottom']"
-          :key="item"
-          :label="$t(`layout.sidebarFoldList.${item}`)"
-          :value="item"
-        />
+        <el-option v-for="item in ['顶部', '底部', '不显示']" :key="item" :label="item" :value="item" />
       </el-select>
     </div>
   </div>

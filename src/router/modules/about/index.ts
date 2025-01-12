@@ -1,4 +1,3 @@
-import { t } from '@/hooks/web/useI18n';
 import type { AppRouteRecordRaw } from '@/router/type';
 
 const about: AppRouteRecordRaw[] = [
@@ -7,7 +6,7 @@ const about: AppRouteRecordRaw[] = [
     redirect: '/about/index',
     name: 'RtAdminInfo',
     meta: {
-      title: t('route.pathName.about'),
+      title: '关于',
       icon: 'about',
       alwaysShow: false,
       position: 11,
@@ -17,7 +16,7 @@ const about: AppRouteRecordRaw[] = [
         path: 'index',
         name: 'RtAbout',
         component: () => import('@/views/about/index.vue'),
-        meta: { title: t('route.pathName.about') },
+        meta: { title: '关于' },
       },
     ],
   },

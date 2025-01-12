@@ -1,4 +1,3 @@
-import { t } from '@/hooks/web/useI18n';
 import type { AppRouteRecordRaw } from '@/router/type';
 
 const Layout = () => import('@/layouts/page-layouts/index.vue');
@@ -9,7 +8,7 @@ const root: Array<AppRouteRecordRaw> = [
     component: Layout,
     name: 'RtRoot',
     meta: {
-      title: t('route.pathName.index'),
+      title: '首页',
       icon: 'iEL-home-filled',
       whiteRoute: true,
     },

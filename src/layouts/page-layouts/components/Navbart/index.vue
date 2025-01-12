@@ -42,7 +42,7 @@
         </template>
       </div>
       <div class="navbar-right">
-        <el-tooltip :content="$t('layout.navbar.fullScreen')" placement="bottom">
+        <el-tooltip content="全屏" placement="bottom">
           <SvgIcon class="cursor" :name="full_screen" @click="fullScreenChange" />
         </el-tooltip>
         <AppLocale class="icon" />

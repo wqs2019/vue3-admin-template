@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import SvgIcon from '@/components/SvgIcon/index.vue';
   import { useRootSetting } from '@/hooks/setting/useRootSetting';
-  import { translateI18n } from '@/hooks/web/useI18n';
   import useSortable from '@/hooks/web/useSortable';
   import { usePermissionStoreHook } from '@/store/modules/permission';
   import { ElDropdown } from 'element-plus';
@@ -107,7 +106,7 @@
         <el-tab-pane v-for="item in multiTabs" :key="setTabPaneKey(item)" :name="setTabPaneKey(item)">
           <template #label>
             <div class="tabs-view-item" @click="changeTab(item)" @contextmenu.prevent="tabPaneMenu(item, $event)" />
-            <span>{{ translateI18n(item.meta?.title) }}</span>
+            <span>{{ item.meta?.title }}</span>
           </template>
         </el-tab-pane>
       </el-tabs>

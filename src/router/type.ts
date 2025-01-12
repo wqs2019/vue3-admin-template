@@ -5,7 +5,7 @@ import type { RouteMeta, RouteRecordRaw } from 'vue-router';
 export type localeTitle = { [key in localeKey]: string };
 export interface Meta extends RouteMeta {
   // 菜单标题
-  title: string | localeTitle;
+  title: string;
   // 设置菜单图标
   icon?: string;
   //排序位置 （子路由无效）

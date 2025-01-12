@@ -1,5 +1,4 @@
 import { getConfig } from '@/config';
-import { translateI18n } from '@/hooks/web/useI18n';
 import { usePermissionStoreHook } from '@/store/modules/permission';
 import { useUserInfoStoreHook } from '@/store/modules/user';
 import NProgress from '@/utils/plugin/progress';
@@ -39,8 +38,8 @@ router.beforeEach((to, from, next) => {
 
   if (!isUrl(to.path) && to.meta.title) {
     const Title = getConfig().title;
-    if (Title) document.title = `${translateI18n(to.meta.title)} | ${Title}`;
-    else document.title = translateI18n(to.meta.title);
+    if (Title) document.title = `${to.meta.title} | ${Title}`;
+    else document.title = to.meta.title;
   }
 
   const userInfoStore = useUserInfoStoreHook();

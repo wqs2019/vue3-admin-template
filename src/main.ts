@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import { getServerConfig } from './config';
-import { configMainI18n } from './locales';
 import { configMainRouter } from './router';
 import { configMainStore } from './store';
 import { configMainGlobalProperties } from './utils';
@@ -16,7 +15,7 @@ import '@/styles/index.scss';
 
 const app = createApp(App);
 
-getServerConfig(app).then(async config => {
+getServerConfig(app).then(async () => {
   // 路由
   await configMainRouter(app);
 
@@ -25,9 +24,6 @@ getServerConfig(app).then(async config => {
 
   // Pinia
   configMainStore(app);
-
-  // 国际化
-  configMainI18n(app, config.locale);
 
   // ElementPlus
   useElementPlus(app);

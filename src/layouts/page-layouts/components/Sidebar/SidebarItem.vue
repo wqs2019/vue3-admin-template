@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import path from 'path';
-  import { translateI18n } from '@/hooks/web/useI18n';
   import { isUrl } from '@jsxiaosi/utils';
   import { ref } from 'vue';
   import type { AppRouteRecordRaw } from '@/router/type';
@@ -70,7 +69,7 @@
       <el-tooltip
         class="box-item"
         :disabled="level > 0 || !collapse"
-        :content="translateI18n(onlyOneChild.meta?.title)"
+        :content="onlyOneChild.meta?.title"
         placement="right"
       >
         <AppLink v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild?.path ?? '')">

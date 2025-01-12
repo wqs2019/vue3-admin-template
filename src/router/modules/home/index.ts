@@ -1,4 +1,3 @@
-import { t } from '@/hooks/web/useI18n';
 /* Layout */
 // import Layout from '@/layouts/index.vue'
 // import AppMain from '@/layouts/components/AppMain/index.vue'
@@ -10,7 +9,7 @@ const safeManagerRoutes: Array<AppRouteRecordRaw> = [
     name: 'RtWelcome',
     component: () => import('@/views/index/index.vue'),
     meta: {
-      title: t('route.pathName.index'),
+      title: '首页',
       icon: 'iEL-home-filled',
       position: 1,
       keepAlive: true,

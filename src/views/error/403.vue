@@ -15,15 +15,11 @@
       <SvgIcon name="error-403" class-name="icon" />
     </div>
     <div class="text">
-      <span>{{ $t('error-page.403.title') }}</span>
+      <span>禁止访问</span>
     </div>
-    <div class="description">
-      {{ $t('error-page.403.description') }}
-    </div>
+    <div class="description">抱歉，访问服务器上的此资源被拒绝。</div>
 
-    <ElButton type="primary" @click="toHome">
-      {{ $t('error-page.back') }}
-    </ElButton>
+    <ElButton type="primary" @click="toHome"> 返回首页 </ElButton>
   </div>
 </template>
 

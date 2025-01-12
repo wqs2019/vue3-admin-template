@@ -54,11 +54,9 @@
 
 <template>
   <div class="setting">
-    <el-drawer v-model="drawer" :title="$t('layout.setup')" :size="320" @close="emit('update:modelValue', false)">
+    <el-drawer v-model="drawer" title="设置" :size="320" @close="emit('update:modelValue', false)">
       <div class="drawer-content">
-        <el-divider content-position="center">
-          {{ $t('layout.layoutSettings') }}
-        </el-divider>
+        <el-divider content-position="center"> 布局设置 </el-divider>
         <div class="layout-seting">
           <div class="sidebar-seting">
             <el-tooltip v-for="item in sidebarSeting" :key="item.value" :content="item.label" placement="bottom">
@@ -75,21 +73,15 @@
             </el-tooltip>
           </div>
         </div>
-        <el-divider content-position="center">
-          {{ $t('layout.themeSettings') }}
-        </el-divider>
+        <el-divider content-position="center"> 主题设置 </el-divider>
         <div>
           <ThemeSettings />
         </div>
-        <el-divider content-position="center">
-          {{ $t('layout.pageSettings') }}
-        </el-divider>
+        <el-divider content-position="center"> 页面设置 </el-divider>
         <div>
           <pageSettings />
         </div>
-        <el-button class="clear-storage" type="danger" @click="handerClearStorage">
-          {{ $t('layout.clearStorage') }}
-        </el-button>
+        <el-button class="clear-storage" type="danger" @click="handerClearStorage"> 清空缓存回到登录页 </el-button>
       </div>
     </el-drawer>
   </div>

@@ -1,4 +1,3 @@
-import { t } from '@/hooks/web/useI18n';
 import type { AppRouteRecordRaw } from '@/router/type';
 
 const Layout = () => import('@/layouts/page-layouts/index.vue');
@@ -10,7 +9,7 @@ const error: AppRouteRecordRaw[] = [
     name: 'error',
     component: Layout,
     meta: {
-      title: t('route.pathName.error'),
+      title: '异常页面',
       icon: 'iEL-remove-filled',
       position: 8,
       whiteRoute: true,
@@ -21,19 +20,19 @@ const error: AppRouteRecordRaw[] = [
         path: '403',
         name: '403',
         component: () => import('@/views/error/403.vue'),
-        meta: { title: t('route.pathName.error403') },
+        meta: { title: '403' },
       },
       {
         path: '404',
         name: '404',
         component: () => import('@/views/error/404.vue'),
-        meta: { title: t('route.pathName.error404') },
+        meta: { title: '404' },
       },
       {
         path: '500',
         name: '500',
         component: () => import('@/views/error/500.vue'),
-        meta: { title: t('route.pathName.error500') },
+        meta: { title: '500' },
       },
     ],
   },

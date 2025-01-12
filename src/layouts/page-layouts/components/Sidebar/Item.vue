@@ -1,13 +1,11 @@
 <script setup lang="ts">
   import SvgIcon from '@/components/SvgIcon/index.vue';
-  import { translateI18n } from '@/hooks/web/useI18n';
   import { ref, useTemplateRef } from 'vue';
-  import type { localeTitle } from '@/router/type';
 
   const props = withDefaults(
     defineProps<{
       icon?: string;
-      title?: string | localeTitle;
+      title?: string;
       className?: string;
       collapse?: boolean;
       mode?: 'vertical' | 'horizontal';
@@ -41,9 +39,9 @@
     :class="[!props.icon && 'menu-item-text-only', props.mode === 'vertical' && 'sidebar-menu-item-text']"
     @mouseover="onTextMove"
   >
-    <el-tooltip :content="translateI18n(props.title)" :disabled="!showTextTooltip || props.collapse" placement="top">
+    <el-tooltip :content="props?.title || ''" :disabled="!showTextTooltip || props.collapse" placement="top">
       <el-text truncated>
-        {{ translateI18n(props.title) }}
+        {{ props.title }}
       </el-text>
     </el-tooltip>
   </div>
