@@ -1,5 +1,7 @@
 import { useMessage } from '@/hooks/web/useMessage';
+import { _storage } from '@jsxiaosi/utils';
 import { isString } from 'lodash-es';
+import type { UseInfoType } from '@/server/useInfo';
 import { checkStatus } from './axiosStatus';
 import { errorData } from './errorConfig';
 import { IAxios } from './iAxios';
@@ -64,11 +66,7 @@ const interceptor: AxiosInterceptor = {
    * @description: 请求拦截器处理
    */
   requestInterceptors: config => {
-    const { requestOptions } = config;
-    if (requestOptions?.withToken) {
-      (config as Recordable).headers._token = 'myToken';
-      if (requestOptions?.specialToken) (config as Recordable).headers._token = requestOptions?.specialToken;
-    }
+    (config as Recordable).headers.Token = _storage.getStorage<UseInfoType>('userInfo')?.tokenId;
 
     return config;
   },

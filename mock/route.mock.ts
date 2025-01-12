@@ -185,7 +185,7 @@ export default defineFakeRoute([
     method: 'post',
     response: ({ body }: { body: Recordable }) => {
       const { name } = body;
-      if (name === 'admin') {
+      if (name === 'zyg4') {
         return {
           data: [...power, ...adminPermissionRouter],
           code: 1,

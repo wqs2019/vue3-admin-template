@@ -22,9 +22,6 @@ export function configRouteList() {
     }
   });
 
-  console.log(whiteRouteModulesList, 'whiteRouteModulesList');
-  console.log(routeModulesList, 'routeModulesList');
-
   // 菜单路由 根据父级重新处理子路由的path路径
   routeModulesList = setUpRoutePath(routeModulesList);
 

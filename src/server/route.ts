@@ -4,6 +4,8 @@ enum Api {
   ROUTE_LIST = '/mock_api/getRoute',
 }
 
+//   ROUTE_LIST = '/v1/user/menus_by_code/trc',
+
 interface Param {
   name: string;
 }

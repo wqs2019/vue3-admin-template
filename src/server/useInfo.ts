@@ -9,6 +9,7 @@ export interface UseInfoType {
   introduction: string;
   title: string;
   token: string;
+  tokenId: string;
   role: RoleEnum;
 }
 

@@ -21,6 +21,12 @@ export function createViteServer(): ServerOptions {
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },
+      '/v1': {
+        // 这里填写后端地址
+        target: 'https://demo.ziyun.team',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
     },
   };
   return viteServer;

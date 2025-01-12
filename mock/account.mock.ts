@@ -8,7 +8,7 @@ const userInfo = {
   introduction: '微笑着，努力着，欣赏着',
   title: '小斯斯',
   token: '',
-  role: 'admin',
+  role: 'zyg4',
 };
 
 const userInfo2 = {
@@ -29,7 +29,7 @@ export default defineFakeRoute([
     method: 'post',
     response: ({ body }: { body: Recordable }) => {
       const { username, password } = body;
-      if (username === 'admin' && password === 'admin123') {
+      if (username === 'zyg4' && password === 'ZiYun!1882024') {
         userInfo.token = genID(16);
         return {
           data: userInfo,

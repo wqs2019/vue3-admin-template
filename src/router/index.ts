@@ -38,8 +38,11 @@ router.beforeEach((to, from, next) => {
 
   if (!isUrl(to.path) && to.meta.title) {
     const Title = getConfig().title;
-    if (Title) document.title = `${to.meta.title} | ${Title}`;
-    else document.title = to.meta.title;
+    if (Title) {
+      document.title = `${to.meta.title} | ${Title}`;
+    } else {
+      (document as any).title = to.meta.title;
+    }
   }
 
   const userInfoStore = useUserInfoStoreHook();
@@ -59,7 +62,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (usePermissionStoreHook().wholeMenus.length === 0) {
         initRoute(userInfoStore.roles).then(res => {
-          if (res.length) {
+          if (res?.length) {
             router.push({
               path: to.path,
               query: to.query,

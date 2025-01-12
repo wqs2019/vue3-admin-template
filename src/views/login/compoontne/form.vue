@@ -10,19 +10,19 @@
   const ruleFormRef = useTemplateRef<FormInstance>('rule-form-ref');
 
   const ruleForm = reactive({
-    username: '',
-    password: '',
+    userName: 'zyg4',
+    userPass: 'ZiYun!1882024',
   });
   const checked = ref<boolean>(false);
 
   const rules = reactive<FormRules<typeof ruleForm>>({
-    username: [{ required: true, trigger: 'blur', message: t('sys.login.rules.userName') }],
-    password: [{ required: true, trigger: 'blur', message: t('sys.login.rules.password') }],
+    userName: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+    userPass: [{ required: true, trigger: 'blur', message: '请输入密码' }],
   });
 
   const router = useRouter();
   const onLogin = async (): Promise<void> => {
-    const res = await getUserInfo(ruleForm.username, ruleForm.password);
+    const res = await getUserInfo(ruleForm.userName, ruleForm.userPass);
     if (res.code === 1) {
       useUserInfoStoreHook().setUserInfo(res.data);
       await initRoute(res.data.role);
@@ -44,16 +44,16 @@
 
 <template>
   <el-form ref="rule-form-ref" :model="ruleForm" :rules="rules" size="large" class="demo-ruleForm">
-    <el-form-item prop="username" class="enter-y">
-      <el-input v-model="ruleForm.username" :prefix-icon="Avatar" clearable placeholder="用户名：admin" />
+    <el-form-item prop="userName" class="enter-y">
+      <el-input v-model="ruleForm.userName" :prefix-icon="Avatar" clearable placeholder="用户名：admin" />
     </el-form-item>
-    <el-form-item prop="password" class="enter-y">
+    <el-form-item prop="userPass" class="enter-y">
       <el-input
-        v-model="ruleForm.password"
-        type="password"
+        v-model="ruleForm.userPass"
+        type="userPass"
         :prefix-icon="Lock"
         clearable
-        show-password
+        show-user-pass
         placeholder="密码：admin123"
       />
     </el-form-item>

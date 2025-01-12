@@ -23,7 +23,7 @@ export const usePermissionStore = defineStore({
   state: (): PermissionState => getPermissionState(),
   actions: {
     setWholeMenus(routeList: AppRouteRecordRaw[]) {
-      this.wholeMenus = [...routeList];
+      this.wholeMenus = [...(routeList || [])];
     },
     cacheOperate({ mode = 'sync', name = '' }: { mode: 'add' | 'delete' | 'sync'; name?: RouteRecordName }) {
       let delIndex = -1;
