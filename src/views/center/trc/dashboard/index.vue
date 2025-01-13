@@ -1,3 +1,3 @@
 <script setup lang="ts"></script>
 
-<template>src/views/center/trc/dashboard/index.vue</template>
+<template>我是首页</template>
