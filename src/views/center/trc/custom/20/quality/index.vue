@@ -1,3 +1,3 @@
 <script setup lang="ts"></script>
 
-<template>首页</template>
+<template>src/views/center/trc/custom/20/quality/index.vue</template>

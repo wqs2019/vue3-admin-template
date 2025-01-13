@@ -2,12 +2,11 @@ import { getRouteApi2 } from '@/server/route';
 import { usePermissionStoreHook } from '@/store/modules/permission';
 import { isUrl } from '@jsxiaosi/utils';
 import { useTimeoutFn } from '@vueuse/core';
-import { defineAsyncComponent } from 'vue';
 import type { RouteRecordName, RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
 import { router, sidebarRouteList } from './index';
 import type { AppRouteRecordRaw, Meta } from './type';
 const Layout = () => import('@/layouts/page-layouts/index.vue');
-
+const modules = import.meta.glob('@/views/**/*.vue');
 // 初始化权限路由
 export async function initRoute() {
   const { clearAllCachePage, setWholeMenus } = usePermissionStoreHook();
@@ -28,7 +27,7 @@ function formatChildRoutes(childRoutes: any) {
       name: route.code,
       path: route.route || route.index,
       meta: route.meta,
-      component: defineAsyncComponent(() => import(`@/views${route.route || route.index}/index.vue`)),
+      component: modules[`/src/views${route.route}/index.vue`],
       children: route.children ? formatChildRoutes(route.children) : undefined,
     };
   });
