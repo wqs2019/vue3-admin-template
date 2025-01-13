@@ -2,10 +2,11 @@ import { getRouteApi2 } from '@/server/route';
 import { usePermissionStoreHook } from '@/store/modules/permission';
 import { isUrl } from '@jsxiaosi/utils';
 import { useTimeoutFn } from '@vueuse/core';
-// import type { RouteDataItemType } from '@/server/route';
+import { defineAsyncComponent } from 'vue';
 import type { RouteRecordName, RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
 import { router, sidebarRouteList } from './index';
 import type { AppRouteRecordRaw, Meta } from './type';
+const Layout = () => import('@/layouts/page-layouts/index.vue');
 
 // 初始化权限路由
 export async function initRoute() {
@@ -15,80 +16,66 @@ export async function initRoute() {
   let routeList: AppRouteRecordRaw[] = [];
   routeList = await getAsyncRoute();
   // 更新路由列表前通过formatFlatteningRoutes打平树结构
-  privilegeRouting(router.options.routes as RouteRecordRaw[], formatFlatteningRoutes(routeList) as AppRouteRecordRaw[]);
-  console.log(routeList, 'setWholeMenus====>');
-
+  privilegeRouting(routeList);
   setWholeMenus(routeList);
-
   return routeList;
+}
+
+function formatChildRoutes(childRoutes: any) {
+  return childRoutes?.map((route: any) => {
+    return {
+      redirect: route.redirect,
+      name: route.code,
+      path: route.route || route.index,
+      meta: route.meta,
+      component: defineAsyncComponent(() => import(`@/views${route.route || route.index}/index.vue`)),
+      children: route.children ? formatChildRoutes(route.children) : undefined,
+    };
+  });
+}
+
+function formatParentRoutes(routes: any) {
+  return routes?.map((route: any) => {
+    // 父路由使用 Layout 组件
+    return {
+      redirect: route.redirect,
+      name: route.code,
+      path: route.route,
+      meta: route.meta,
+      component: Layout,
+      children: route.children || undefined,
+    };
+  });
+}
+
+function formatAllRoutes(routes: any) {
+  const parentRoutes = formatParentRoutes(routes);
+  parentRoutes.forEach((parentRoute: any) => {
+    if (parentRoute.children) {
+      parentRoute.children = formatChildRoutes(parentRoute.children);
+    }
+  });
+  console.log('parentRoutes', parentRoutes);
+
+  return parentRoutes;
 }
 
 // 获取后端路由
 async function getAsyncRoute() {
   const res = await getRouteApi2();
   if (res.data) {
-    function formatRoute(data) {
-      const formatData = data?.map(item => {
-        const temp: any = {
-          name: item.code,
-          path: item.route,
-          meta: {
-            title: item.meta.title,
-            icon: item.meta.icon.replace('el-icon-', ''),
-            alwaysShow: !!item.children,
-          },
-        };
-        if (item.children?.length > 0) {
-          temp.children = formatRoute(item.children);
-        }
-        return temp;
-      });
-      return formatData;
-    }
-    console.log(formatRoute(res.data?.children), 'format====>');
-
-    return formatRoute(res.data?.children || []);
-    // return handleRouteList(sortRouteList(sidebarRouteList), res.data);
+    return formatAllRoutes(res.data?.children || []);
   } else {
     console.error('No requested route');
     return [];
   }
 }
 
-// 通过后端返回路由列表过滤无权限路由
-// function handleRouteList(routerList: AppRouteRecordRaw[], dataRouter: RouteDataItemType[]) {
-//   const newRouteList: AppRouteRecordRaw[] = dataRouter;
-//   routerList.forEach(i => {
-//     if (!i.meta?.whiteRoute) {
-//       const rItem = dataRouter.find(r => r.name === i.name);
-//       if (rItem) {
-//         if (i.children && i.children.length) {
-//           const children = handleRouteList(i.children, rItem.children);
-//           if (children) newRouteList.push({ ...i, children });
-//         } else {
-//           newRouteList.push(i);
-//         }
-//       }
-//     } else {
-//       newRouteList.push(i);
-//     }
-//   });
-//   return newRouteList;
-// }
-
-// 更新route的路由列表
-function privilegeRouting(routeList: RouteRecordRaw[], dataRouter: AppRouteRecordRaw[]) {
-  const homeIndex = routeList.findIndex(i => i.path === '/');
-  console.log(homeIndex, 'homeIndex===>');
-
-  if (homeIndex !== -1) {
-    routeList[homeIndex].redirect = dataRouter[0].path;
-    routeList[homeIndex].children = [];
-    dataRouter.forEach(i => {
-      routeList[homeIndex].children?.push(i as RouteRecordRaw);
-    });
-    router.addRoute(routeList[homeIndex]);
-  }
+// 添加后端返回的路由到列表表注册
+function privilegeRouting(dataRouter: AppRouteRecordRaw[]) {
+  dataRouter?.forEach(item => {
+    router.addRoute(item as RouteRecordRaw);
+  });
 }
 
 // 拼接路径 path

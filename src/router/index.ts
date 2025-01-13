@@ -60,13 +60,21 @@ router.beforeEach((to, from, next) => {
     if (from.name) {
       next();
     } else {
+      // 页面刷新
       if (usePermissionStoreHook().wholeMenus.length === 0) {
-        initRoute().then(res => {
-          if (res?.length) {
-            router.push({
-              path: to.path,
-              query: to.query,
-            });
+        initRoute().then(routeData => {
+          if (routeData?.length) {
+            if (to.redirectedFrom) {
+              router.push({
+                path: to.redirectedFrom.path,
+                query: to.redirectedFrom.query,
+              });
+            } else {
+              router.push({
+                path: to.path,
+                query: to.query,
+              });
+            }
           } else {
             userInfoStore.removeUserInfo();
             router.push('/login');

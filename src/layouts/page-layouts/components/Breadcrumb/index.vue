@@ -16,12 +16,16 @@
   // 当前路由
   const route = useRoute();
 
-  const routes = (useRouter().options.routes.find(i => i.path === '/')?.children || []) as AppRouteRecordRaw[];
+  const routes = usePermissionStoreHook().wholeMenus;
 
   // 解析路由匹配的数组
   const getBreadcrumb = () => {
     const matched: AppRouteRecordRaw[] = [];
-    const parentRoutes = getParentPaths(router.currentRoute.value.matched[1].path || '', routes || []);
+    const hasParent = router.currentRoute.value.matched?.length >= 2;
+    const parentRoutes = getParentPaths(
+      router.currentRoute.value.matched?.[hasParent ? 1 : 0]?.path || '',
+      routes || [],
+    );
     // 获取每个父级路径对应的路由信息
     parentRoutes.forEach(path => {
       if (path !== '/') {
@@ -62,6 +66,8 @@
   watch(route, getBreadcrumb);
 
   const { appConfig } = useRootSetting();
+
+  console.log(levelList, 'levelList');
 </script>
 
 <template>

@@ -3,20 +3,25 @@ import type { AppRouteRecordRaw } from '@/router/type';
 const Layout = () => import('@/layouts/page-layouts/index.vue');
 
 const root: Array<AppRouteRecordRaw> = [
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   name: 'RtRoot',
-  //   meta: {
-  //     title: '首页',
-  //     icon: 'iEL-home-filled',
-  //     whiteRoute: true,
-  //   },
-  // },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/welcome', // 跟目录重定向的路径在这里修改
+    name: 'RtRoot',
+    meta: {
+      title: '首页',
+      icon: 'el-home-filled',
+    },
+  },
   {
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     name: 'login',
+  },
+  {
+    path: '/welcome',
+    component: () => import('@/views/welcome/index.vue'),
+    name: 'welcome',
   },
   {
     path: '/redirect',

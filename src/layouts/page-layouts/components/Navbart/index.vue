@@ -48,11 +48,11 @@
         <AppLocale class="icon" />
         <AppTheme />
         <AppAccount />
-        <SvgIcon class="cursor" name="iEL-setting" @click="drawer = true" />
+        <SvgIcon class="cursor" name="el-icon-setting" @click="drawer = true" />
       </div>
     </div>
     <div v-show="appConfig.hideNavbart" class="setting-icon cursor">
-      <SvgIcon name="iEL-setting" @click="drawer = true" />
+      <SvgIcon name="el-icon-setting" @click="drawer = true" />
     </div>
     <Setting v-model:model-value="drawer" />
   </div>

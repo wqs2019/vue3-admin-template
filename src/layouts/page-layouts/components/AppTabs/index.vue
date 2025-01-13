@@ -128,7 +128,7 @@
     <div v-if="!appConfig.hideTabsConfig" class="right-button">
       <ul>
         <li class="cursor" @click="onFresh()">
-          <SvgIcon class="rotate" name="iEL-refresh" />
+          <SvgIcon class="rotate" name="el-icon-refresh" />
         </li>
         <li>
           <ElDropdown
@@ -137,7 +137,7 @@
             placement="bottom-end"
             @visible-change="(e: boolean) => e && contextmenu(route)"
           >
-            <SvgIcon class="action-item cursor" name="iEL-arrow-down" />
+            <SvgIcon class="action-item cursor" name="el-icon-arrow-down" />
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item

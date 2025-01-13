@@ -3,13 +3,13 @@ import { pathNamekeyCheck, setUpRoutePath } from '../utils';
 
 export function configRouteList() {
   // 白名单目录/文件，白名单目录 = 不渲染到菜单，不显示标签页
-  const whiteCatalogue = ['root', 'whiteList', 'error'];
+  const whiteCatalogue = ['root', 'error'];
 
   let routeModulesList: AppRouteRecordRaw[] = []; //菜单路由
   const whiteRouteModulesList: AppRouteRecordRaw[] = []; // 不参与菜单处理的路由
 
   // 自动查找路由配置文件
-  const modules: Recordable = import.meta.glob('./**/*.ts', { eager: true });
+  const modules: Record<string, any> = import.meta.glob('./**/*.ts', { eager: true });
 
   Object.keys(modules).forEach(key => {
     const mod = modules[key].default;

@@ -40,7 +40,7 @@
           <template #header>
             <div class="card-header cursor">
               <span>{{ item.title }}</span>
-              <SvgIcon name="iEL-arrow-right" />
+              <SvgIcon name="el-arrow-right" />
             </div>
           </template>
           <div class="card-content">

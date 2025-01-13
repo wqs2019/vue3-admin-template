@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  // import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-
   import { computed } from 'vue';
   const props = defineProps({
     // route object
@@ -22,24 +20,17 @@
     },
   });
 
-  const isELIcon = computed(() => props.name.indexOf('iEL') !== -1);
-
+  const isELIcon = computed(() => props.name.indexOf('el-icon') !== -1);
   const symbolId = computed(() => `#${props.prefix}-${props.name}`);
-  // const iconComponent = computed(() => {
-  //   return ElementPlusIconsVue[props.name as keyof typeof ElementPlusIconsVue];
-  // });
 </script>
 
 <template>
-  <el-icon v-if="isELIcon" :class="`svg-icon ${className}`">
-    <component :is="name" />
-  </el-icon>
-  <i v-else class="svg-icon" :class="className">
+  <el-icon v-if="isELIcon" :class="`svg-icon ${className}`"><component :is="name" /> </el-icon>
+  <i v-else class="svg-icon" :class="name">
     <svg class="svg" :aria-hidden="true">
       <use :xlink:href="symbolId" :fill="color" />
     </svg>
   </i>
-  <!-- <component :is="iconComponent" v-if="iconComponent" /> -->
 </template>
 
 <style lang="scss" scoped>

@@ -1,5 +1,4 @@
 import type { PermissionMode } from '@/enum/role';
-import type { localeKey } from '@/locales/types';
 import type { AppRouteRecordRaw, Meta } from '@/router/type';
 import type { StorageConfig } from '@jsxiaosi/utils/es/window/storage/types';
 import type { _RouteLocationBase, LocationQuery, RouteParams, RouteRecordName } from 'vue-router';
@@ -19,8 +18,6 @@ export interface AppConfig {
   sidebarMode: SidebarMode;
   // 主题模式：白天主题、夜间主题
   themeMode: 'light' | 'dark';
-  // 国际化
-  locale: localeKey;
   // storage配置
   StorageConfig: StorageConfig;
   // 移动端菜单

@@ -137,7 +137,15 @@ export const iconComponents = [
 ];
 
 const transElIconName = (iconName: string): string => {
-  return `iEL${iconName.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)}`;
+  // 使用正则表达式将大写字母替换为 '-' 加小写字母
+  let result = iconName.replace(/([A-Z])/g, match => {
+    return `-${match.toLowerCase()}`;
+  });
+  // 如果转换后的字符串以 '-' 开头，将其移除
+  if (result.startsWith('-')) {
+    result = result.slice(1);
+  }
+  return `el-icon-${result}`;
 };
 
 export function useElementPlus(app: App) {
@@ -149,6 +157,7 @@ export function useElementPlus(app: App) {
   plugins.forEach(plugin => {
     app.use(plugin);
   });
+
   // 注册图标
   for (const [_, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(transElIconName(component.name as string), component);

@@ -10,10 +10,7 @@ const error: AppRouteRecordRaw[] = [
     component: Layout,
     meta: {
       title: '异常页面',
-      icon: 'iEL-remove-filled',
-      position: 8,
-      whiteRoute: true,
-      alwaysShow: true,
+      icon: 'el-remove-filled',
     },
     children: [
       {

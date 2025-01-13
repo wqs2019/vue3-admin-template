@@ -40,7 +40,7 @@
         :style="{ backgroundColor: i }"
         @click="() => (pureColor = i)"
       >
-        <SvgIcon v-if="i === pureColor" class="icon" name="iEL-select" />
+        <SvgIcon v-if="i === pureColor" class="icon" name="el-icon-select" />
       </div>
     </div>
     <div class="options">
