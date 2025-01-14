@@ -23,10 +23,9 @@ export async function initRoute() {
 function formatChildRoutes(childRoutes: any) {
   return childRoutes?.map((route: any) => {
     return {
-      redirect: route.redirect,
+      ...route,
       name: route.code,
       path: route.route || route.index,
-      meta: route.meta,
       component: modules[`/src/views${route.route}/index.vue`],
       children: route.children ? formatChildRoutes(route.children) : undefined,
     };
@@ -37,12 +36,12 @@ function formatParentRoutes(routes: any) {
   return routes?.map((route: any) => {
     // 父路由使用 Layout 组件
     return {
-      redirect: route.redirect,
-      name: route.code,
+      ...route,
+      name: `${route.code}_parent`, // 防止路由name重复
       path: route.route,
-      meta: route.meta,
       component: Layout,
-      children: route.children || undefined,
+      // 如果一级菜单只有一个，就给它包一个children[]
+      children: route.children || formatChildRoutes([route]),
     };
   });
 }

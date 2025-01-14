@@ -36,9 +36,9 @@
       }) ?? [];
 
     // 如果只有一个路由 默认展示子路由
-    // if (showingChildren.length === 1) {
-    //   return true;
-    // }
+    if (showingChildren.length === 1) {
+      return true;
+    }
 
     // Show parent if there are no child router to display
     if (showingChildren.length === 0) {
