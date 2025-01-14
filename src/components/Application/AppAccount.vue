@@ -11,12 +11,14 @@
       router.push('/login');
     }
   };
+  const userName = useUserInfoStoreHook().userInfo?.userName;
 </script>
 
 <template>
   <div class="account cursor">
     <el-dropdown trigger="click" @command="command">
-      <img src="@/assets/login/logo.png" class="wave" />
+      <!-- <img src="@/assets/login/logo.png" class="wave" /> -->
+      <div class="username">{{ userName }}</div>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item command="signOut"> 退出登录 </el-dropdown-item>
@@ -29,10 +31,9 @@
 
 <style lang="scss" scoped>
   .account {
-    .wave {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
+    .username {
+      color: #8c8c8c;
+      font-size: 18px;
     }
   }
 </style>

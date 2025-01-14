@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>我是首页</template>
+<template>
+  <div>这是dashboard页面</div>
+</template>

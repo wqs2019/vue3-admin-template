@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>src/views/center/trc/research/100/deadModel/index.vue</template>
+<template>
+  <div>这是deadModel页面</div>
+</template>

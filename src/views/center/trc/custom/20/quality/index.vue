@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>src/views/center/trc/custom/20/quality/index.vue</template>
+<template>
+  <div>这是quality页面</div>
+</template>

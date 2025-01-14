@@ -1,12 +1,13 @@
-import { getRouteApi2 } from '@/server/route';
+import Layout from '@/layouts/page-layouts/index.vue';
+import { getRouteApi } from '@/server/route';
 import { usePermissionStoreHook } from '@/store/modules/permission';
 import { isUrl } from '@jsxiaosi/utils';
 import { useTimeoutFn } from '@vueuse/core';
 import type { RouteRecordName, RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
 import { router, sidebarRouteList } from './index';
 import type { AppRouteRecordRaw, Meta } from './type';
-const Layout = () => import('@/layouts/page-layouts/index.vue');
 const modules = import.meta.glob('@/views/**/*.vue');
+
 // 初始化权限路由
 export async function initRoute() {
   const { clearAllCachePage, setWholeMenus } = usePermissionStoreHook();
@@ -14,7 +15,6 @@ export async function initRoute() {
   clearAllCachePage();
   let routeList: AppRouteRecordRaw[] = [];
   routeList = await getAsyncRoute();
-  // 更新路由列表前通过formatFlatteningRoutes打平树结构
   privilegeRouting(routeList);
   setWholeMenus(routeList);
   return routeList;
@@ -61,7 +61,7 @@ function formatAllRoutes(routes: any) {
 
 // 获取后端路由
 async function getAsyncRoute() {
-  const res = await getRouteApi2();
+  const res = await getRouteApi();
   if (res.data) {
     return formatAllRoutes(res.data?.children || []);
   } else {

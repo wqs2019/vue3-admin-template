@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>src/views/center/trc/up/20/cases/index.vue</template>
+<template>
+  <div>这是cases页面</div>
+</template>

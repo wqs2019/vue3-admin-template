@@ -1,16 +1,19 @@
 import { deffHttp } from '@/utils/axios';
-import type { RoleEnum } from '@/enum/role';
 
+// TODO: 需要补充用户信息
 export interface UseInfoType {
-  name: string;
-  userid: string;
-  email: string;
-  signature: string;
-  introduction: string;
-  title: string;
-  token: string;
-  tokenId: string;
-  role: RoleEnum;
+  name: string; // 用户名
+  userName: string; // 用户名
+  nickName: string; // 昵称
+  id: number; // id
+  role: {
+    menus: { children: { label: string; name: string; position: number; meta: { icon: string; title: string } }[] };
+    name: string;
+    remark: string;
+    status: number;
+  }; // 五中心菜单
+  tokenId: string; // 登录token
+  userRole: number; // 用户角色
 }
 
 export interface UserParams {

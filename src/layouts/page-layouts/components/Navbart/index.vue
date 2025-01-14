@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { AppAccount, AppLocale, AppTheme } from '@/components/Application';
+  import { AppAccount, AppTheme } from '@/components/Application';
   import SvgIcon from '@/components/SvgIcon/index.vue';
   import { useRootSetting } from '@/hooks/setting/useRootSetting';
   // import { ref } from 'vue'
@@ -45,7 +45,8 @@
         <el-tooltip content="全屏" placement="bottom">
           <SvgIcon class="cursor" :name="full_screen" @click="fullScreenChange" />
         </el-tooltip>
-        <AppLocale class="icon" />
+        <!-- 多语言注释 -->
+        <!-- <AppLocale class="icon" /> -->
         <AppTheme />
         <AppAccount />
         <SvgIcon class="cursor" name="el-icon-setting" @click="drawer = true" />
